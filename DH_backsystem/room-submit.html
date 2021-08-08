@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Static Navigation - SB Admin</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+        .range {
+            width: 50%;
+            position: absolute;
+            left: 25%;
+
+        }
+
+        .sub {
+            position: absolute;
+            right: 0%;
+        }
+
+        #preview {
+            border: 1px solid lightgray;
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            /* position: relative; */
+        }
+
+        #preview img.preview_img {
+            width: 100%;
+        }
+
+        footer {
+            position: absolute;
+            bottom: -21%;
+            width: 100%;
+        }
+
+        div.text-muted {
+            margin: 0 auto;
+            display: block;
+            color: white !important;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class='range'>
+        <form>
+            <h1>房型上架</h1><br>
+            <h4>基本資訊</h4>
+            <!-- <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">上傳圖片</span>
+            </div> -->
+            <!-- <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">上傳圖片</span>
+            </div> -->
+            <div class="input-group mb-3">
+                <!-- <label class="input-group-text" for="inputGroupFile01">上傳圖片</label> -->
+                <input type="file" class="form-control p_file" id="p_file">
+            </div>
+            <!-- <div> -->
+            <!-- <label>商品圖片：</label> -->
+            <!-- <input type="file" id="p_file"> -->
+            <!-- <div id="drop_zone"> -->
+            <!-- <span class="text">圖片拖曳至此處</span> -->
+            <!-- </div> -->
+            <div>
+                <div id="preview">
+                    <span class="text">預覽圖</span>
+                </div>
+                <div id="preview">
+                    <span class="text">預覽圖</span>
+                </div>
+                <div id="preview">
+                    <span class="text">預覽圖</span>
+                </div>
+                <div id="preview">
+                    <span class="text">預覽圖</span>
+                </div>
+            </div>
+
+            <!-- </div> -->
+            <!-- <div class="container">
+                <div id="preview">
+                    <span class="text">封面照片</span>
+                </div>
+                <div id="preview">
+                    <span class="text">*圖片1*</span>
+                </div>
+                <div id="preview">
+                    <span class="text">*圖片2*</span>
+                </div>
+                <div id="preview">
+                    <span class="text">*圖片3*</span>
+                </div>
+
+            </div> -->
+
+
+            <br>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">房型名稱</span>
+                <input type="text" class="form-control" placeholder='請輸入房型名稱..' aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">房型敘述</span>
+                <input type="text" class="form-control" placeholder='請輸入房型敘述..' aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+            <h4>銷售資訊</h4>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">價格</span>
+                <input type="text" class="form-control" placeholder='請輸入價格..' aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">房型數量</span>
+                <input type="text" class="form-control" placeholder='請輸入數量..' aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">規格</span>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>請選擇規格</option>
+                    <option value="1">單人房</option>
+                    <option value="2">雙人房</option>
+                    <option value="3">四人房</option>
+                </select>
+            </div>
+            <div class="sub">
+                <button type="button" class="btn btn-outline-primary cancel">取消</button>
+                <button type="button" class="btn btn-outline-primary submit">儲存並上架</button>
+            </div>
+
+        </form>
+    </div>
+    <footer class="py-4 bg-dark mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; DreamHoliday Team5 Website 2021</div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src='/jquery-3.6.0.min.js'></script>
+    <script>
+        $(window).on("load", function () {
+
+            var preview_el = document.getElementById("preview");
+            var p_file_el = document.getElementById("p_file");
+
+            $(".cancel").on('click', function () {
+                location.href = "/index.html";
+            });
+            $(".submit").on('click', function () {
+                location.href = "/index.html";
+            });
+            var preview_img = function (file) {
+                var img_node = document.createElement("img");
+                var reader = new FileReader(); // 用來讀取檔案
+                reader.addEventListener("load", function () {
+                    //console.log(reader.result);
+                    let img_node = document.createElement("img");
+                    img_node.setAttribute("src", reader.result); // <img src="abdafaewre">
+                    img_node.setAttribute("class", "preview_img"); // <img src="abdafaewre" class="preview_img">
+                    preview_el.innerHTML = '';
+                    preview_el.append(img_node);
+                });
+                reader.readAsDataURL(file); // 讀取檔案
+            };
+
+            p_file_el.addEventListener("change", function (e) {
+                if (this.files.length > 0) {
+                    preview_img(this.files[0]);
+                } else {
+                    preview_el.innerHTML = '<span class="text">預覽圖</span>';
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
