@@ -27,7 +27,23 @@
             display: inline-block;
             width: 100px;
             height: 100px;
-            position: relative;
+            /* position: relative; */
+        }
+
+        #preview img.preview_img {
+            width: 100%;
+        }
+
+        footer {
+            position: absolute;
+            bottom: -21%;
+            width: 100%;
+        }
+
+        div.text-muted {
+            margin: 0 auto;
+            display: block;
+            color: white !important;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
@@ -40,39 +56,35 @@
         <form>
             <h1>新增菜餚</h1><br>
             <h4>基本資訊</h4>
-            <!-- <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">上傳圖片</span>
-            </div> -->
+
             <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">菜餚圖片</span>
+
+                <input type="file" class="form-control p_file" id="p_file">
             </div>
 
-            <div class="container">
-                <div id="preview" class="upload_zone">
-                    <span class="text">封面照片</span>
+            <div>
+                <div id="preview">
+                    <span class="text">預覽圖</span>
                 </div>
                 <div id="preview">
-                    <span class="text">*圖片1*</span>
+                    <span class="text">預覽圖</span>
                 </div>
                 <div id="preview">
-                    <span class="text">*圖片2*</span>
+                    <span class="text">預覽圖</span>
                 </div>
                 <div id="preview">
-                    <span class="text">*圖片3*</span>
+                    <span class="text">預覽圖</span>
                 </div>
-
             </div>
-
-
             <br>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">菜餚名稱</span>
-                <input type="text" class="form-control" placeholder='請輸入菜餚名稱..' aria-label="Sizing example input"
+                <input type="text" class="form-control" placeholder='請輸入房型名稱..' aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">菜餚敘述</span>
-                <input type="text" class="form-control" placeholder='請輸入菜餚敘述..' aria-label="Sizing example input"
+                <input type="text" class="form-control" placeholder='請輸入房型敘述..' aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default">
             </div>
             <h4>銷售資訊</h4>
@@ -93,6 +105,13 @@
 
         </form>
     </div>
+    <footer class="py-4 bg-dark mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; DreamHoliday Team5 Website 2021</div>
+            </div>
+        </div>
+    </footer>
 
 
 
@@ -102,12 +121,36 @@
     <script src='/jquery-3.6.0.min.js'></script>
     <script>
         $(window).on("load", function () {
-            const dropbox = document.getElementById("upload_zone");
+
+            var preview_el = document.getElementById("preview");
+            var p_file_el = document.getElementById("p_file");
+
             $(".cancel").on('click', function () {
                 location.href = "/index.html";
             });
             $(".submit").on('click', function () {
                 location.href = "/index.html";
+            });
+            var preview_img = function (file) {
+                var img_node = document.createElement("img");
+                var reader = new FileReader(); // 用來讀取檔案
+                reader.addEventListener("load", function () {
+                    //console.log(reader.result);
+                    let img_node = document.createElement("img");
+                    img_node.setAttribute("src", reader.result); // <img src="abdafaewre">
+                    img_node.setAttribute("class", "preview_img"); // <img src="abdafaewre" class="preview_img">
+                    preview_el.innerHTML = '';
+                    preview_el.append(img_node);
+                });
+                reader.readAsDataURL(file); // 讀取檔案
+            };
+
+            p_file_el.addEventListener("change", function (e) {
+                if (this.files.length > 0) {
+                    preview_img(this.files[0]);
+                } else {
+                    preview_el.innerHTML = '<span class="text">預覽圖</span>';
+                }
             });
         });
 
