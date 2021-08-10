@@ -45,6 +45,11 @@
             display: block;
             color: white !important;
         }
+
+        textarea {
+            resize: none;
+            height: 200px;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
@@ -82,10 +87,15 @@
                 <input type="text" class="form-control" placeholder='請輸入房型名稱..' aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default">
             </div>
-            <div class="input-group mb-3">
+            <!-- <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">菜餚敘述</span>
                 <input type="text" class="form-control" placeholder='請輸入房型敘述..' aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default">
+            </div> -->
+            <div class="text input-group">
+                <span class="input-group-text ">菜餚敘述</span>
+                <textarea id="form-control_3" class="form-control form-control_3" placeholder='請輸入菜餚敘述..'
+                    aria-label=""></textarea>
             </div>
             <h4>銷售資訊</h4>
             <div class="input-group mb-3">
