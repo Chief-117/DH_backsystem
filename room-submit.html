@@ -14,7 +14,7 @@
             width: 50%;
             position: absolute;
             left: 25%;
-
+            height: 80%;
         }
 
         textarea {
@@ -27,13 +27,12 @@
             right: 0%;
         }
 
-        #preview {
+        /* #preview {
             border: 1px solid lightgray;
             display: inline-block;
             width: 100px;
             height: 100px;
-            /* position: relative; */
-        }
+        } */
 
         #preview img.preview_img {
             width: 100%;
@@ -49,6 +48,11 @@
             margin: 0 auto;
             display: block;
             color: white !important;
+        }
+
+        .obj {
+            width: 200px;
+            height: 200px;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
@@ -69,7 +73,8 @@
             </div> -->
             <div class="input-group mb-3">
                 <!-- <label class="input-group-text" for="inputGroupFile01">上傳圖片</label> -->
-                <input type="file" class="form-control p_file" id="p_file">
+                <input type="file" class="form-control upload_zone" id="fileUploader" onchange="
+                    handleFiles(this.files)" />
             </div>
             <!-- <div> -->
             <!-- <label>商品圖片：</label> -->
@@ -77,7 +82,8 @@
             <!-- <div id="drop_zone"> -->
             <!-- <span class="text">圖片拖曳至此處</span> -->
             <!-- </div> -->
-            <div>
+            <div id="preview"></div>
+            <!-- <div>
                 <div id="preview">
                     <span class="text">預覽圖</span>
                 </div>
@@ -90,24 +96,10 @@
                 <div id="preview">
                     <span class="text">預覽圖</span>
                 </div>
-            </div>
+            </div> -->
 
             <!-- </div> -->
-            <!-- <div class="container">
-                <div id="preview">
-                    <span class="text">封面照片</span>
-                </div>
-                <div id="preview">
-                    <span class="text">*圖片1*</span>
-                </div>
-                <div id="preview">
-                    <span class="text">*圖片2*</span>
-                </div>
-                <div id="preview">
-                    <span class="text">*圖片3*</span>
-                </div>
 
-            </div> -->
 
 
             <br>
@@ -168,39 +160,103 @@
     <script src="js/scripts.js"></script>
     <script src='/jquery-3.6.0.min.js'></script>
     <script>
-        $(window).on("load", function () {
+        const dropbox = document.getElementById("upload_zone");
+        const preview = document.getElementById("preview");
 
-            var preview_el = document.getElementById("preview");
-            var p_file_el = document.getElementById("p_file");
+        function handleFileSelect(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            const fileUploader = document.getElementById("upload_zone");
+            fileUploader.click();
+        }
 
-            $(".cancel").on('click', function () {
-                location.href = "/index.html";
-            });
-            $(".submit").on('click', function () {
-                location.href = "/index.html";
-            });
-            var preview_img = function (file) {
-                var img_node = document.createElement("img");
-                var reader = new FileReader(); // 用來讀取檔案
-                reader.addEventListener("load", function () {
-                    //console.log(reader.result);
-                    let img_node = document.createElement("img");
-                    img_node.setAttribute("src", reader.result); // <img src="abdafaewre">
-                    img_node.setAttribute("class", "preview_img"); // <img src="abdafaewre" class="preview_img">
-                    preview_el.innerHTML = '';
-                    preview_el.append(img_node);
-                });
-                reader.readAsDataURL(file); // 讀取檔案
-            };
+        const click = e => handleFileSelect(e);
 
-            p_file_el.addEventListener("change", function (e) {
-                if (this.files.length > 0) {
-                    preview_img(this.files[0]);
-                } else {
-                    preview_el.innerHTML = '<span class="text">預覽圖</span>';
+        // prevent the default method working
+        function dragenter(e) {
+            // add the styling to div
+            dropbox.classList.add("upload_zone_enter");
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        const dragleave = () => dropbox.classList.remove("upload_zone_enter");
+
+        // prevent the default method working
+        function dragover(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        function handleFiles(files) {
+            for (var i = 0; i < files.length; i++) {
+                const file = files[i];
+                const imageType = /image.*/;
+
+                if (!file.type.match(imageType)) {
+                    continue;
                 }
-            });
-        });
+
+                const img = document.createElement("img");
+                img.classList.add("obj");
+                img.file = file;
+                preview.appendChild(img);
+
+                const reader = new FileReader();
+                reader.onload = (e => img.src = e.target.result);
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function drop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            handleFiles(files);
+            dropbox.classList.remove("upload_zone_enter");
+        }
+
+        dropbox.addEventListener("click", click, false);
+        dropbox.addEventListener("dragenter", dragenter, false);
+        dropbox.addEventListener("dragleave", dragleave, false);
+        dropbox.addEventListener("dragover", dragover, false);
+        dropbox.addEventListener("drop", drop, false);
+        // $(window).on("load", function () {
+
+        //     var preview_el = document.getElementById("preview");
+        //     var p_file_el = document.getElementById("p_file");
+
+        //     $(".cancel").on('click', function () {
+        //         location.href = "/index.html";
+        //     });
+        //     $(".submit").on('click', function () {
+        //         location.href = "/index.html";
+        //     });
+        //     var preview_img = function (file) {
+        //         var img_node = document.createElement("img");
+        //         var reader = new FileReader(); // 用來讀取檔案
+        //         reader.addEventListener("load", function () {
+        //             //console.log(reader.result);
+        //             let img_node = document.createElement("img");
+        //             img_node.setAttribute("src", reader.result); // <img src="abdafaewre">
+        //             img_node.setAttribute("class", "preview_img"); // <img src="abdafaewre" class="preview_img">
+        //             preview_el.innerHTML = '';
+        //             preview_el.append(img_node);
+        //         });
+        //         reader.readAsDataURL(file); // 讀取檔案
+        //     };
+
+        //     p_file_el.addEventListener("change", function (e) {
+        //         if (this.files.length > 0) {
+        //             preview_img(this.files[0]);
+        //         } else {
+        //             preview_el.innerHTML = '<span class="text">預覽圖</span>';
+        //         }
+        //     });
+        // });
 
 
     </script>

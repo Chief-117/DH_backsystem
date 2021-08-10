@@ -69,75 +69,6 @@
         .bk {
             height: 10px;
         }
-
-        .uploadImage {
-            display: inline-block;
-            vertical-align: top;
-            position: relative;
-            width: 90px;
-            height: 90px;
-            background: url("../點選上傳.png") no-repeat;
-            background-size: cover;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .uploadImage p {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 10px;
-            font-size: 14px;
-            color: #999999;
-        }
-
-        .uploadImage input#file {
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .preview {
-            position: relative;
-            display: inline-block;
-            vertical-align: top;
-            margin-left: 10px;
-            width: 90px;
-            height: 90px;
-            background: #E1E6ED;
-            text-align: center;
-        }
-
-        .preview img {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-        }
-
-        .preview img[src=""] {
-            opacity: 0;
-            filter: Alpha(0);
-            /* 相容IE8-9 */
-        }
-
-        .preview img:not([src]) {
-            opacity: 0;
-            filter: Alpha(0);
-            /* 相容IE8-9 */
-        }
-
-        .preview .word {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            line-height: 90px;
-            font-size: 14px;
-            color: #999999;
-            z-index: 0;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
@@ -157,8 +88,8 @@
             </div> -->
                 <div class="input-group mb-3">
                     <!-- <label class="input-group-text" for="inputGroupFile01">上傳圖片</label> -->
-                    <input type="file" class="form-control upload_zone" id="file"
-                        accept="image/png, image/jpeg, image/gif, image/jpg" multiple />
+                    <input type="file" class="form-control upload_zone" id="fileUploader" onchange="
+                    handleFiles(this.files)" />
                 </div>
                 <!-- <div> -->
                 <!-- <label>商品圖片：</label> -->
@@ -166,23 +97,7 @@
                 <!-- <div id="drop_zone"> -->
                 <!-- <span class="text">圖片拖曳至此處</span> -->
                 <!-- </div> -->
-                <div class="preview">
-                    <img src="" id="look1">
-                    <p class="word">封面圖</p>
-                </div>
-                <div class="preview">
-                    <img src="" id="look2">
-                    <p class="word">圖片1</p>
-                </div>
-                <div class="preview">
-                    <img src="" id="look3">
-                    <p class="word">圖片2</p>
-                </div>
-                <div class="preview">
-                    <img src="" id="look4">
-                    <p class="word">圖片3</p>
-                </div>
-                <!-- <div id="preview"></div> -->
+                <div id="preview"></div>
                 <!-- <div>
                 <div id="preview">
                     <span class="text">預覽圖</span>
@@ -202,7 +117,7 @@
 
 
 
-                <div class='bk'></div>
+                <br>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">房型名稱</span>
                     <input type="text" class="form-control" placeholder='請輸入房型名稱..' aria-label="Sizing example input"
@@ -261,75 +176,9 @@
     <script src="js/scripts.js"></script>
     <script src='/jquery-3.6.0.min.js'></script>
     <script>
-        var hasUploadedOne = false;// 已上傳過1張圖片
-        var hasUploadedTwo = false;// 已上傳過2張圖片
-        var hasUploadedThree = false;// 已上傳過3張圖片
-        var hasUploadedFour = false;// 已上傳過4張圖片
-        //獲取到預覽框
-        var imgObjPreview1 = document.getElementById("look1");
-        var imgObjPreview2 = document.getElementById("look2");
-        var imgObjPreview3 = document.getElementById("look3");
-        var imgObjPreview4 = document.getElementById("look4");
 
-        document.getElementById('file').onchange = function () {
-            // 若還沒完成2張圖片的上傳
-            if (!hasUploadedFour) {
-                //獲取到file的檔案
-                var docObj = this;
-
-                //獲取到檔名和型別（非IE，可一次上傳1張或多張）
-                if (docObj.files && docObj.files[0]) {
-                    // 一次上傳了>=2張圖片（只有前兩張會真的上傳上去）
-                    if (docObj.files.length >= 4) {
-                        imgObjPreview1.src = window.URL.createObjectURL(docObj.files[0]);
-                        imgObjPreview2.src = window.URL.createObjectURL(docObj.files[1]);
-                        imgObjPreview3.src = window.URL.createObjectURL(docObj.files[2]);
-                        imgObjPreview4.src = window.URL.createObjectURL(docObj.files[3]);
-                        hasUploadedFour = true;
-                    }
-                    //一次只上傳了1張照片
-                    else {
-                        // 這是上傳的第一張照片
-                        if (hasUploadedOne == false) {
-                            imgObjPreview1.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedOne = true;
-                        }
-                        // 這是上傳的第二張照片
-                        else if (hasUploadedTwo == false) {
-                            imgObjPreview2.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedTwo = true;
-                        } else if (hasUploadedThree == false) {
-                            imgObjPreview3.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedThree = true;
-                        } else if (hasUploadedFour == false) {
-                            imgObjPreview4.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedFour = true;
-                        }
-                    }
-
-                }
-                //IE（只能一次上傳1張）
-                else {
-                    //使用濾鏡
-                    docObj.select();
-                    var imgSrc = document.selection.createRange().text;
-                    // 這是上傳的第一張照片
-                    if (!hasUploadedOne) {
-                        imgObjPreview1.src = imgSrc;
-                        hasUploadedOne = true;
-                    }
-                    // 這是上傳的第二張照片
-                    else {
-                        imgObjPreview2.src = imgSrc;
-                        hasUploadedTwo = true;
-                    }
-                    document.selection.empty();
-                }
-                return true;
-            }
-        }
-        // var dropbox = document.getElementById("upload_zone");
-        // var preview = document.getElementById("preview");
+        var dropbox = document.getElementById("upload_zone");
+        var preview = document.getElementById("preview");
 
         // function handleFileSelect(e) {
         //     e.stopPropagation();
@@ -356,34 +205,34 @@
         //     e.preventDefault();
         // }
 
-        // function handleFiles(files) {
-        //     for (var i = 0; i < files.length; i++) {
-        //         const file = files[i];
-        //         const imageType = /image.*/;
+        function handleFiles(files) {
+            for (var i = 0; i < files.length; i++) {
+                const file = files[i];
+                const imageType = /image.*/;
 
-        //         if (!file.type.match(imageType)) {
-        //             continue;
-        //         }
+                if (!file.type.match(imageType)) {
+                    continue;
+                }
 
-        //         const img = document.createElement("img");
-        //         img.classList.add("obj");
-        //         img.file = file;
-        //         preview.appendChild(img);
+                const img = document.createElement("img");
+                img.classList.add("obj");
+                img.file = file;
+                preview.appendChild(img);
 
-        //         const reader = new FileReader();
-        //         reader.onload = (e => img.src = e.target.result);
-        //         reader.readAsDataURL(file);
-        //     }
-        // }
-        // var preview_el = document.getElementById("preview");
-        // var p_file_el = document.getElementById("p_file");
+                const reader = new FileReader();
+                reader.onload = (e => img.src = e.target.result);
+                reader.readAsDataURL(file);
+            }
+        }
+        var preview_el = document.getElementById("preview");
+        var p_file_el = document.getElementById("p_file");
 
-        // $(".cancel").on('click', function () {
-        //     location.href = "/index.html";
-        // });
-        // $(".submit").on('click', function () {
-        //     location.href = "/res-management.html";
-        // });
+        $(".cancel").on('click', function () {
+            location.href = "/index.html";
+        });
+        $(".submit").on('click', function () {
+            location.href = "/res-management.html";
+        });
 
         // function drop(e) {
         //     e.stopPropagation();
