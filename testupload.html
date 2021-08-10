@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="text input-group">
+        <span class="input-group-text ">景點介紹</span>
+        <textarea id="form-control_3" class="form-control form-control_3" aria-label=""></textarea>
+    </div>
+    <input id="file" type="file" />
+
+    <!--預覽區塊-->
+    <img id="demo" />
+</body>
+<script src='jquery-3.6.0.min.js'></script>
+<script>
+    $('#file').change(function () {
+        var file = $('#file')[0].files[0];
+        var reader = new FileReader;
+        reader.onload = function (e) {
+            $('#demo').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+
+</html>
