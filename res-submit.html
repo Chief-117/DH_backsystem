@@ -154,7 +154,7 @@
                 <div class="input-group mb-3">
                     <!-- <label class="input-group-text" for="inputGroupFile01">上傳圖片</label> -->
                     <input type="file" class="form-control upload_zone" id="file"
-                        accept="image/png, image/jpeg, image/gif, image/jpg" multiple />
+                        accept="image/png, image/jpeg, image/gif, image/jpg" />
                 </div>
                 <div class="preview">
                     <img src="" id="look1">
@@ -230,6 +230,7 @@
                 </div> -->
                 <div class="sub">
                     <button type="button" class="btn btn-outline-primary cancel">取消</button>
+                    <button type="button" class="btn btn-outline-primary save">儲存並下架</button>
                     <button type="button" class="btn btn-outline-primary submit">儲存並上架</button>
                 </div>
                 <div class='bk'></div>
@@ -270,52 +271,52 @@
                 //獲取到檔名和型別（非IE，可一次上傳1張或多張）
                 if (docObj.files && docObj.files[0]) {
                     // 一次上傳了>=2張圖片（只有前兩張會真的上傳上去）
-                    if (docObj.files.length >= 4) {
-                        imgObjPreview1.src = window.URL.createObjectURL(docObj.files[0]);
-                        imgObjPreview2.src = window.URL.createObjectURL(docObj.files[1]);
-                        imgObjPreview3.src = window.URL.createObjectURL(docObj.files[2]);
-                        imgObjPreview4.src = window.URL.createObjectURL(docObj.files[3]);
-                        hasUploadedFour = true;
-                    }
+                    // if (docObj.files.length >= 4) {
+                    //     imgObjPreview1.src = window.URL.createObjectURL(docObj.files[0]);
+                    //     imgObjPreview2.src = window.URL.createObjectURL(docObj.files[1]);
+                    //     imgObjPreview3.src = window.URL.createObjectURL(docObj.files[2]);
+                    //     imgObjPreview4.src = window.URL.createObjectURL(docObj.files[3]);
+                    //     hasUploadedFour = true;
+                    // }
                     //一次只上傳了1張照片
-                    else {
-                        // 這是上傳的第一張照片
-                        if (hasUploadedOne == false) {
-                            imgObjPreview1.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedOne = true;
-                        }
-                        // 這是上傳的第二張照片
-                        else if (hasUploadedTwo == false) {
-                            imgObjPreview2.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedTwo = true;
-                        } else if (hasUploadedThree == false) {
-                            imgObjPreview3.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedThree = true;
-                        } else if (hasUploadedFour == false) {
-                            imgObjPreview4.src = window.URL.createObjectURL(docObj.files[0]);
-                            hasUploadedFour = true;
-                        }
-                    }
-
-                }
-                //IE（只能一次上傳1張）
-                else {
-                    //使用濾鏡
-                    docObj.select();
-                    var imgSrc = document.selection.createRange().text;
+                    // else {
                     // 這是上傳的第一張照片
-                    if (!hasUploadedOne) {
-                        imgObjPreview1.src = imgSrc;
+                    if (hasUploadedOne == false) {
+                        imgObjPreview1.src = window.URL.createObjectURL(docObj.files[0]);
                         hasUploadedOne = true;
                     }
                     // 這是上傳的第二張照片
-                    else {
-                        imgObjPreview2.src = imgSrc;
+                    else if (hasUploadedTwo == false) {
+                        imgObjPreview2.src = window.URL.createObjectURL(docObj.files[0]);
                         hasUploadedTwo = true;
+                    } else if (hasUploadedThree == false) {
+                        imgObjPreview3.src = window.URL.createObjectURL(docObj.files[0]);
+                        hasUploadedThree = true;
+                    } else if (hasUploadedFour == false) {
+                        imgObjPreview4.src = window.URL.createObjectURL(docObj.files[0]);
+                        hasUploadedFour = true;
                     }
-                    document.selection.empty();
+                    // }
+
                 }
-                return true;
+                //IE（只能一次上傳1張）
+                // else {
+                //     //使用濾鏡
+                //     docObj.select();
+                //     var imgSrc = document.selection.createRange().text;
+                //     // 這是上傳的第一張照片
+                //     if (!hasUploadedOne) {
+                //         imgObjPreview1.src = imgSrc;
+                //         hasUploadedOne = true;
+                //     }
+                //     // 這是上傳的第二張照片
+                //     else {
+                //         imgObjPreview2.src = imgSrc;
+                //         hasUploadedTwo = true;
+                //     }
+                //     document.selection.empty();
+                // }
+                // return true;
             }
         }
         // var dropbox = document.getElementById("upload_zone");
@@ -368,12 +369,15 @@
         // var preview_el = document.getElementById("preview");
         // var p_file_el = document.getElementById("p_file");
 
-        // $(".cancel").on('click', function () {
-        //     location.href = "/index.html";
-        // });
-        // $(".submit").on('click', function () {
-        //     location.href = "/res-management.html";
-        // });
+        $(".cancel").on('click', function () {
+            location.href = "/index.html";
+        });
+        $(".save").on('click', function () {
+            location.href = "/res-management.html";
+        });
+        $(".submit").on('click', function () {
+            location.href = "/res-management.html";
+        });
 
         // function drop(e) {
         //     e.stopPropagation();
